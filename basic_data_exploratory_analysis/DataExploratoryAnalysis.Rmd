@@ -1,0 +1,71 @@
+---
+title: "Basic Data Exploratory Analysis"
+author: "Nguyen Trung Nam"
+date: "`r Sys.Date()`"
+output: html_document
+number_sections: true
+zoreto: True 
+editor: 
+  mode: source
+bibliography: references.bib
+editor_options: 
+  chunk_output_type: console
+---
+
+LOAD LIBRARY & USER-DEFINED FUNCTIONS
+```{r Library, echo=FALSE}
+library(data.table)
+library(tidyverse)
+library(readr)
+library(lubridate)
+library(zoo)
+library(forcats)
+library(corrr)
+library(moments)
+```
+
+# Introduction
+
+Finding insightful information from data is also called the data exploration, which generally consists of 6 steps: 1. Formulating right questions 2. Data collection 3. Data munging 4. Basic exploratory data analysis 5. Advance exploratory data analysis 6. Model assessments.  
+
+## Aim
+In this exercise, the basic exploratory data analysis is carried out on a cleaned dataset. This focuses on understanding the dataset by using descriptive statistics and data visualization.
+
+## Brief introduction on the basic exploratory data analysis
+
+### Descriptive statistics
+In this step several aspects of data are explored:  
+- Data structure providing data dimension, data types  
+- Calculate basic statistics
+
+### Visualizing analysis
+
+# Datasets used
+
+```{r load data, echo=FALSE}
+datset = read_csv("d:/Repository/Machine-Learning-with-R/basic_data_exploratory_analysis/aqidataset.csv")[,-1]
+```
+# Exploratoring data using descriptive statistics
+```{r descriptive data analysis, echo=TRUE}
+# explore data structure & data types
+str(datset)
+# summarize numeric variable: Overall Air Quality Index (AQI) value
+summary(datset$`Overall AQI Value`)
+# summarize numeric variable by cities
+summary_df <- datset %>% group_by(city) %>%
+              summarise(ave = mean(`Overall AQI Value`),
+                        max = max(`Overall AQI Value`),
+                        min = min(`Overall AQI Value`),
+                        skew = skewness(`Overall AQI Value`),
+                        q25 = quantile(`Overall AQI Value`, 0.25),   
+                        median = median(`Overall AQI Value`),           
+                        q75 = quantile(`Overall AQI Value`, 0.75),
+                        sd  = sd(`Overall AQI Value`))
+print(summary_df)
+                        
+                        
+                        
+```
+# Exploratoring data using data visualization
+
+# Reference
